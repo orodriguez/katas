@@ -1,0 +1,17 @@
+# A sample Guardfile
+# More info at https://github.com/guard/guard#readme
+
+guard :bundler do
+  watch('Gemfile')
+  watch(/^.+\.gemspec/)
+end
+
+guard :rspec do
+  watch(%r{^spec/.+_spec\.rb$})
+  
+  specs = "spec"
+
+  watch(%r{^lib/(.+)\.rb$}) { specs }
+  
+  watch(%r{^spec/(.+)_helper\.rb$})  { specs }
+end
