@@ -1,3 +1,5 @@
+Coding [Kata](http://codingdojo.org/cgi-bin/wiki.pl?KataNumbersInWords).
+
 ## Test it on irb
 
 ```ruby
