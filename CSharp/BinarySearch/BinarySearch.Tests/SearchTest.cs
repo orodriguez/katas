@@ -17,7 +17,7 @@ namespace BinarySearch.Tests
 
     public SearchTest()
     {
-      Search = Classic.Search;
+      Search = Recursive.Search;
     }
 
     public class TargetIsContained : SearchTest
