@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Should;
+using System;
+using System.Collections.Generic;
 using System.Linq;
-using Should;
 using Xunit;
 
 namespace BinarySearch.Tests
@@ -27,20 +28,33 @@ namespace BinarySearch.Tests
       new List<int> { 10, 15 }
         .Search(15)
         .ShouldEqual(1);
+
+    [Fact]
+    public void ThreeElementsList_TargetIsFirstHalf() =>
+      new List<int> { 10, 15, 200 }
+        .Search(15)
+        .ShouldEqual(1);
   }
 
   public static class ListExtensions
   {
-    public static int Search<T>(this IList<T> list, T target)
+    public static int Search(this IList<int> list, int target)
     {
-      if (!list.Any())
-        return -1;
+      var min = 0;
+      var max = list.Count - 1;
 
-      if (list.Any() && list.First().Equals(target))
-        return 0;
+      while (min <= max)
+      {
+        var guess = (int) Math.Floor((min + max) / 2.0);
 
-      if (list.Count == 2 && list[1].Equals(target))
-        return 1;
+        if (list[guess] == target)
+          return guess;
+
+        if (list[guess] < target)
+          min = guess + 1;
+        else
+          max = guess - 1;
+      }
 
       return -1;
     }
