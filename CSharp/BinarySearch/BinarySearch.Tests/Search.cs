@@ -8,43 +8,55 @@ namespace BinarySearch.Tests
   public class Search
   {
     [Fact]
-    public void EmptyList() => new List<int>().Search(1).ShouldEqual(-1);
-
-    [Fact]
-    public void OneElementList_TargetIsContained() =>
+    public void _1() =>
       new List<int> { 1 }
         .Search(1)
         .ShouldEqual(0);
 
     [Fact]
-    public void OneElementList_TargetNotContined() =>
-      new List<int> { 1 }
-        .Search(2)
-        .ShouldEqual(-1);
-
-    [Fact]
-    public void TwoElementsList_TargetIsContained() =>
+    public void _2() =>
       new List<int> { 10, 15 }
         .Search(15)
         .ShouldEqual(1);
 
     [Fact]
-    public void ThreeElementsList_TargetIsFirstHalf() =>
+    public void _3() =>
       new List<int> { 10, 15, 200 }
         .Search(15)
         .ShouldEqual(1);
 
     [Fact]
-    public void FourElementsList_TargetIsFirstHalf() =>
+    public void _4_TargetInFirstHalf() =>
       new List<int> { 10, 15, 200, 201 }
         .Search(15)
         .ShouldEqual(1);
 
     [Fact]
-    public void FourElementsList_TargetIsSecondHalf() =>
+    public void _4_TargetInSecondHalf() =>
       new List<int> { 10, 15, 200, 201 }
         .Search(200)
         .ShouldEqual(2);
+
+    public class TargetNotContained
+    {
+      [Fact]
+      public void _0() => 
+        new List<int>()
+          .Search(1)
+          .ShouldEqual(-1);
+
+      [Fact]
+      public void _1() =>
+        new List<int> { 1 }
+          .Search(2)
+          .ShouldEqual(-1);
+
+      [Fact]
+      public void _5() =>
+        new List<int> { 10, 15, 200, 201, 1000 }
+          .Search(21)
+          .ShouldEqual(-1);
+    }
   }
 
   public static class ListExtensions
