@@ -1,7 +1,6 @@
 ﻿using Should;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Xunit;
 
 namespace BinarySearch.Tests
@@ -34,6 +33,18 @@ namespace BinarySearch.Tests
       new List<int> { 10, 15, 200 }
         .Search(15)
         .ShouldEqual(1);
+
+    [Fact]
+    public void FourElementsList_TargetIsFirstHalf() =>
+      new List<int> { 10, 15, 200, 201 }
+        .Search(15)
+        .ShouldEqual(1);
+
+    [Fact]
+    public void FourElementsList_TargetIsSecondHalf() =>
+      new List<int> { 10, 15, 200, 201 }
+        .Search(200)
+        .ShouldEqual(2);
   }
 
   public static class ListExtensions
