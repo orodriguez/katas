@@ -1,5 +1,4 @@
 ﻿using Should;
-using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -66,30 +65,6 @@ namespace BinarySearch.Tests
         new List<int> { 10, 15, 200, 201, 1000 }
           .Search(21)
           .ShouldEqual(-1);
-    }
-  }
-
-  public static class ListExtensions
-  {
-    public static int Search(this IList<int> list, int target)
-    {
-      var min = 0;
-      var max = list.Count - 1;
-
-      while (min <= max)
-      {
-        var guess = (int)Math.Floor((min + max) / 2.0);
-
-        if (list[guess] == target)
-          return guess;
-
-        if (list[guess] < target)
-          min = guess + 1;
-        else
-          max = guess - 1;
-      }
-
-      return -1;
     }
   }
 }
