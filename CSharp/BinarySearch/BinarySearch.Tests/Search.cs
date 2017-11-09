@@ -4,11 +4,11 @@ using Xunit;
 
 namespace BinarySearch.Tests
 {
-    public class Search
-    {
-      [Fact]
-      public void Empty() => new List<int>().Search(1).ShouldEqual(-1);
-    }
+  public class Search
+  {
+    [Fact]
+    public void Empty() => new List<int>().Search(1).ShouldEqual(-1);
+  }
 
   public static class ListExtensions
   {
