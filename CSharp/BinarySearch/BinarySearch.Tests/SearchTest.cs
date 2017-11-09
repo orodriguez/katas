@@ -1,5 +1,4 @@
-﻿using System;
-using Should;
+﻿using Should;
 using System.Collections.Generic;
 using Xunit;
 
@@ -18,7 +17,7 @@ namespace BinarySearch.Tests
 
     public SearchTest()
     {
-      Search = Oop.Search;
+      Search = Classic.Search;
     }
 
     public class TargetIsContained : SearchTest
