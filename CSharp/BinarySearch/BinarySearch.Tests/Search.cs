@@ -11,13 +11,13 @@ namespace BinarySearch.Tests
     public void EmptyList() => new List<int>().Search(1).ShouldEqual(-1);
 
     [Fact]
-    public void OneElementList_TargetIsContained() => 
+    public void OneElementList_TargetIsContained() =>
       new List<int> { 1 }
         .Search(1)
         .ShouldEqual(0);
 
     [Fact]
-    public void OneElementList_TargetNotContined() => 
+    public void OneElementList_TargetNotContined() =>
       new List<int> { 1 }
         .Search(2)
         .ShouldEqual(-1);
@@ -25,9 +25,9 @@ namespace BinarySearch.Tests
 
   public static class ListExtensions
   {
-    public static int Search<T>(this IList<T> list, T target) => 
+    public static int Search<T>(this IList<T> list, T target) =>
       list.Any() && list.First().Equals(target)
-        ? 0 
+        ? 0
         : -1;
   }
 }
