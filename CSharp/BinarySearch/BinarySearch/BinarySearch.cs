@@ -7,11 +7,11 @@ namespace BinarySearch
   {
     public static int Search(IList<int> list, int target)
     {
-      var range = new IndexRange(from: 0, to: list.Count - 1);
+      var range = new IndexRange(list);
 
       while (range.Size > 0)
       {
-        var guess = range.Guess();
+        var guess = range.MiddleIndex();
 
         if (list[guess] == target)
           return guess;
@@ -24,19 +24,24 @@ namespace BinarySearch
 
     private struct IndexRange
     {
-      public IndexRange(int from, int to)
+      public IndexRange(ICollection<int> list) 
+        : this(from: 0, to: list.Count - 1)
       {
-        From = from;
-        To = to;
       }
 
       public int Size => To - From + 1;
 
-      public int Guess() => (int) Math.Floor((From + To) / 2.0);
+      public int MiddleIndex() => (int) Math.Floor((From + To) / 2.0);
 
       public IndexRange After(int index) => new IndexRange(index + 1, this.To);
 
       public IndexRange Before(int index) => new IndexRange(this.From, index - 1);
+
+      private IndexRange(int from, int to)
+      {
+        From = from;
+        To = to;
+      }
 
       private int To { get; }
 
