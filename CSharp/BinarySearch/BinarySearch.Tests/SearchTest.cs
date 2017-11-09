@@ -18,7 +18,7 @@ namespace BinarySearch.Tests
 
     public SearchTest()
     {
-      Search = OOP.Search;
+      Search = Oop.Search;
     }
 
     public class TargetIsContained : SearchTest
