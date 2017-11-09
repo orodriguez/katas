@@ -16,7 +16,8 @@ namespace BinarySearch
       if (list[guess] == target)
         return guess;
 
-      return Search(list, target, list[guess] < target ? range.After(guess) : range.Before(guess));
+      return Search(list, target, 
+        list[guess] < target ? range.After(guess) : range.Before(guess));
     }
   }
 }
