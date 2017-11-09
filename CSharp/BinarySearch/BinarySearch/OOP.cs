@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BinarySearch
 {
-  public static class BinarySearch
+  public static class OOP
   {
     public static int Search(IList<int> list, int target)
     {

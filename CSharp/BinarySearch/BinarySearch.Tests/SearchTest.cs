@@ -1,4 +1,5 @@
-﻿using Should;
+﻿using System;
+using Should;
 using System.Collections.Generic;
 using Xunit;
 
@@ -11,83 +12,78 @@ namespace BinarySearch.Tests
   /// Each nested class indicates a context and exists in order to
   /// simplify the name of each test.
   /// </summary>
-  public class Search
+  public class SearchTest
   {
-    public class TargetIsContained
+    protected Search Search;
+
+    public SearchTest()
+    {
+      Search = OOP.Search;
+    }
+
+    public class TargetIsContained : SearchTest
     {
       [Fact]
       public void _1() =>
-        new List<int> { 1 }
-          .Search(1)
+        Search(new List<int> { 1 }, 1)
           .ShouldEqual(0);
 
       [Fact]
       public void _2() =>
-        new List<int> { 10, 15 }
-          .Search(15)
+        Search(new List<int> { 10, 15 }, 15)
           .ShouldEqual(1);
 
       [Fact]
       public void _3() =>
-        new List<int> { 10, 15, 200 }
-          .Search(15)
+        Search(new List<int> { 10, 15, 200 }, 15)
           .ShouldEqual(1);
 
       [Fact]
       public void _4_TargetInFirstHalf() =>
-        new List<int> { 10, 15, 200, 201 }
-          .Search(15)
+        Search(new List<int> { 10, 15, 200, 201 }, 15)
           .ShouldEqual(1);
 
       [Fact]
       public void _4_TargetInSecondHalf() =>
-        new List<int> { 10, 15, 200, 201 }
-          .Search(200)
+        Search(new List<int> { 10, 15, 200, 201 }, 200)
           .ShouldEqual(2);
 
       [Fact]
       public void _10() =>
-        new List<int> { 10, 15, 200, 201, 1000, 1001, 1500, 40000, 70000, 70001 }
-          .Search(1500)
+        Search(new List<int> { 10, 15, 200, 201, 1000, 1001, 1500, 40000, 70000, 70001 }, 1500)
           .ShouldEqual(6);
 
       [Fact]
       public void _10_TargetIsFirst() =>
-        new List<int> { 10, 15, 200, 201, 1000, 1001, 1500, 40000, 70000, 70001 }
-          .Search(10)
+        Search(new List<int> { 10, 15, 200, 201, 1000, 1001, 1500, 40000, 70000, 70001 }, 10)
           .ShouldEqual(0);
 
       [Fact]
       public void _10_TargetIsLast() =>
-        new List<int> { 10, 15, 200, 201, 1000, 1001, 1500, 40000, 70000, 70001 }
-          .Search(70001)
+        Search(new List<int> { 10, 15, 200, 201, 1000, 1001, 1500, 40000, 70000, 70001 }, 70001)
           .ShouldEqual(9);
     }
 
-    public class TargetNotContained
+    public class TargetNotContained : SearchTest
     {
       [Fact]
       public void _0() =>
-        new List<int>()
-          .Search(1)
+        Search(new List<int>(), 1)
           .ShouldEqual(-1);
 
       [Fact]
       public void _1() =>
-        new List<int> { 1 }
-          .Search(2)
+        Search(new List<int> { 1 }, 2)
           .ShouldEqual(-1);
 
       [Fact]
       public void _5() =>
-        new List<int> { 10, 15, 200, 201, 1000 }
-          .Search(21)
+        Search(new List<int> { 10, 15, 200, 201, 1000 }, 21)
           .ShouldEqual(-1);
 
       [Fact]
       public void _10() =>
-        new List<int> { 10, 15, 200, 201, 1000, 1001, 1500, 40000, 70000, 70001 }
-          .Search(14)
+        Search(new List<int> { 10, 15, 200, 201, 1000, 1001, 1500, 40000, 70000, 70001 }, 14)
           .ShouldEqual(-1);
     }
   }
