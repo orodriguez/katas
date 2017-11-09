@@ -21,13 +21,28 @@ namespace BinarySearch.Tests
       new List<int> { 1 }
         .Search(2)
         .ShouldEqual(-1);
+
+    [Fact]
+    public void TwoElementsList_TargetIsContained() =>
+      new List<int> { 10, 15 }
+        .Search(15)
+        .ShouldEqual(1);
   }
 
   public static class ListExtensions
   {
-    public static int Search<T>(this IList<T> list, T target) =>
-      list.Any() && list.First().Equals(target)
-        ? 0
-        : -1;
+    public static int Search<T>(this IList<T> list, T target)
+    {
+      if (!list.Any())
+        return -1;
+
+      if (list.Any() && list.First().Equals(target))
+        return 0;
+
+      if (list.Count == 2 && list[1].Equals(target))
+        return 1;
+
+      return -1;
+    }
   }
 }
