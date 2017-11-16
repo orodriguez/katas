@@ -77,7 +77,6 @@ namespace BinarySearch.Tests
     }
   }
 
-  // ReSharper disable once InconsistentNaming
   public class WithTuples : SearchTest
   {
     public WithTuples()
