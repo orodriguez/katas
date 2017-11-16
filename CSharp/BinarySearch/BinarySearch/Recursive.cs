@@ -23,4 +23,5 @@ namespace BinarySearch
           : (From: range.From, To: guess - 1));
     }
   }
+
 }
