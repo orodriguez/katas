@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace BinarySearch
 {
   // ReSharper disable once InconsistentNaming
-  public static class OOP
+  public static class WithTuples
   {
     public static int Search(IList<int> list, int target)
     {

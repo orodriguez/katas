@@ -78,11 +78,11 @@ namespace BinarySearch.Tests
   }
 
   // ReSharper disable once InconsistentNaming
-  public class OOP : SearchTest
+  public class WithTuples : SearchTest
   {
-    public OOP()
+    public WithTuples()
     {
-      Search = BinarySearch.OOP.Search;
+      Search = BinarySearch.WithTuples.Search;
     }
   }
 
