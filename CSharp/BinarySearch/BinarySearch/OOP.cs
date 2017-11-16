@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace BinarySearch
 {
@@ -7,16 +8,18 @@ namespace BinarySearch
   {
     public static int Search(IList<int> list, int target)
     {
-      var range = new IndexRange(list);
+      var range = (From: 0, To: list.Count - 1);
 
       while (range.From <= range.To)
       {
-        var guess = range.MiddleIndex();
+        var guess = (int) Math.Floor((range.From + range.To) / 2.0);
 
         if (list[guess] == target)
           return guess;
 
-        range = list[guess] < target ? range.After(guess) : range.Before(guess);
+        range = list[guess] < target 
+          ? (From: guess + 1, To: range.To) 
+          : (From: range.From, To: guess -1);
       }
 
       return -1;
