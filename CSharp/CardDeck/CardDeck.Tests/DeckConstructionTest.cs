@@ -88,26 +88,6 @@ namespace CardDeck.Tests
 
     public int Value { get; }
 
-    public override string ToString()
-    {
-      switch (this)
-      {
-        case Numeric n: return n.Value.ToString();
-        case NonNumeric nn:
-          switch (nn.Value)
-          {
-            case 11: return "J";
-            case 12: return "Q";
-            case 13: return "K";
-            case 14: return "A";
-            default:
-              throw new NotImplementedException();
-          }
-        default:
-          throw new NotImplementedException();
-      }
-    }
-
     public enum Suits
     {
       Spades,
@@ -121,12 +101,26 @@ namespace CardDeck.Tests
       public Numeric(int value, Suits suit) : base(value, suit)
       {
       }
+
+      public override string ToString() => Value.ToString();
     }
 
     public class NonNumeric : Card
     {
       public NonNumeric(int value, Suits suit) : base(value, suit)
       {
+      }
+
+      public override string ToString()
+      {
+        switch (Value)
+        {
+          case 11: return "J";
+          case 12: return "Q";
+          case 13: return "K";
+          case 14: return "A";
+          default: return "Invalid";
+        }
       }
     }
   }
