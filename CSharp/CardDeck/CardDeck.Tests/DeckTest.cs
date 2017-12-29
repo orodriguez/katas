@@ -7,9 +7,9 @@ using Xunit;
 
 namespace CardDeck.Tests
 {
-  public class DeckConstructionTest
+  public class DeckTest
   {
-    public DeckConstructionTest() =>
+    public DeckTest() =>
       Deck = new Deck();
 
     [Fact]
