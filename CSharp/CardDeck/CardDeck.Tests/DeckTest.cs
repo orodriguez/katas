@@ -29,8 +29,8 @@ namespace CardDeck.Tests
     [InlineData("Q", 4)]
     [InlineData("K", 4)]
     [InlineData("A", 4)]
-    public void ShouldHaveByLabel(string value, int expectedCount) =>
-      Deck.Count(card => card.Label == value).ShouldEqual(expectedCount);
+    public void ShouldHaveByLabel(string label, int expectedCount) =>
+      Deck.Count(card => card.Label == label).ShouldEqual(expectedCount);
 
     [Theory]
     [InlineData(Card.Suits.Spades, 13)]
