@@ -9,7 +9,7 @@ namespace CardDeck.Tests
 {
   public class DeckConstructionTest
   {
-    public DeckConstructionTest() => 
+    public DeckConstructionTest() =>
       Deck = new Deck();
 
     [Fact]
@@ -29,8 +29,8 @@ namespace CardDeck.Tests
     [InlineData("Q", 4)]
     [InlineData("K", 4)]
     [InlineData("A", 4)]
-    public void ShouldHaveByStringValue(string value, int expectedCount) => 
-      Deck.Count(card => card.ToString() == value).ShouldEqual(expectedCount);
+    public void ShouldHaveByLabel(string value, int expectedCount) =>
+      Deck.Count(card => card.Label == value).ShouldEqual(expectedCount);
 
     [Theory]
     [InlineData(Card.Suits.Spades, 13)]
@@ -43,7 +43,7 @@ namespace CardDeck.Tests
     [Theory]
     [InlineData(typeof(Card.Numeric), 36)]
     [InlineData(typeof(Card.NonNumeric), 16)]
-    public void ShouldHaveByType(Type type, int expectedCount) => 
+    public void ShouldHaveByType(Type type, int expectedCount) =>
       Deck.Count(card => card.GetType() == type).ShouldEqual(expectedCount);
 
     private Deck Deck { get; }
@@ -61,8 +61,8 @@ namespace CardDeck.Tests
       foreach (var suit in Enum.GetValues(typeof(Card.Suits)).Cast<Card.Suits>())
         foreach (var value in Card.Values)
         {
-          yield return value < 11 
-            ? (Card) new Card.Numeric(value, suit) 
+          yield return value < 11
+            ? (Card)new Card.Numeric(value, suit)
             : new Card.NonNumeric(value, suit);
         }
     }
@@ -88,6 +88,8 @@ namespace CardDeck.Tests
 
     public int Value { get; }
 
+    public abstract string Label { get; }
+
     public enum Suits
     {
       Spades,
@@ -102,7 +104,7 @@ namespace CardDeck.Tests
       {
       }
 
-      public override string ToString() => Value.ToString();
+      public override string Label => Value.ToString();
     }
 
     public class NonNumeric : Card
@@ -111,15 +113,18 @@ namespace CardDeck.Tests
       {
       }
 
-      public override string ToString()
+      public override string Label
       {
-        switch (Value)
+        get
         {
-          case 11: return "J";
-          case 12: return "Q";
-          case 13: return "K";
-          case 14: return "A";
-          default: return "Invalid";
+          switch (Value)
+          {
+            case 11: return "J";
+            case 12: return "Q";
+            case 13: return "K";
+            case 14: return "A";
+            default: return "Invalid";
+          }
         }
       }
     }
