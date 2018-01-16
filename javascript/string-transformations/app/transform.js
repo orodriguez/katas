@@ -18,8 +18,7 @@ const transform = (transformations, str) => {
   };
 
   const toSnakeCase = str => 
-    str.split(/(\s)/g)
-      .map(token => token.match(/\w+/) ? token : "_");
+    str.split(/[,!@#$%^&*()\s]/).join('_');
 
   const handlers = {
     '': str => str,
@@ -29,7 +28,7 @@ const transform = (transformations, str) => {
     'Trim-End': str => str.trimRight(),
     'PascalCase': str => toPascalCase(str).join(''),
     'CamelCase': str => toCamelCase(str).join(''),
-    'SnakeCase': str => toSnakeCase(str).join('')
+    'SnakeCase': str => toSnakeCase(str)
   };
   
 
