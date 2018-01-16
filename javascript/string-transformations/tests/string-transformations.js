@@ -26,3 +26,8 @@ test('Trim-End', (t) => {
   t.plan(1);
   t.equal(transform('Trim-End', 'Hello world\n\t   '), 'Hello world');
 });
+
+test('PascalCase', (t) => {
+  t.plan(1);
+  t.equal(transform('PascalCase', 'hello world'), 'Hello World');
+});
