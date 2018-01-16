@@ -31,3 +31,8 @@ test('PascalCase', (t) => {
   t.plan(1);
   t.equal(transform('PascalCase', 'hello world'), 'Hello World');
 });
+
+test('PascalCase with many spaces', (t) => {
+  t.plan(1);
+  t.equal(transform('PascalCase', '   hello  world   '), '   Hello  World   ');
+});

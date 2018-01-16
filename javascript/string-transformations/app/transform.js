@@ -1,8 +1,8 @@
 const transform = (transformations, str) => {
   const pascalCase = str => 
-    str.split(' ')
+    str.split(/(\s)/g) // split includes the delimiter if a regex with a grupo is passed
       .map(w => w.charAt(0).toUpperCase() + w.slice(1))
-      .join(" ");
+      .join('');
   
   const handlers = {
     '': str => str,
