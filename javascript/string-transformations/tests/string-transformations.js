@@ -1,7 +1,8 @@
 test = require('tape');
 
-test('Sample', (t) => {
-  t.plan(1);
+const transform = require('../app/transform');
 
-  t.equal(1, 1);
+test('None', (t) => {
+  t.plan(1);
+  t.equal(transform('', 'Hello world'), 'Hello world');
 });
