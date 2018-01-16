@@ -2,6 +2,12 @@ test = require('tape');
 
 const transform = require('../app/transform');
 
+const transformationTest = ([transformation,  input, expected]) => 
+  test(transformation, t => {
+    t.plan(1);
+    t.equal(transform(transformation, input), expected);
+  });
+
 [
   ['', 'Hello world', 'Hello world'],
   ['Uppercase', 'Hello world', 'HELLO WORLD'],
@@ -12,9 +18,5 @@ const transform = require('../app/transform');
   ['PascalCase', '   HeLLo  woRld   ', '   Hello  World   '],
   ['CamelCase', 'HEllo  wORld', 'hello  World'],
   ['CamelCase', '  HELLO  WORLD  ', '  hello  World  '],
-  ['SnakeCase', 'hello my friend', 'hello_my_friend'],
-].forEach(([transformation,  input, expected]) => 
-  test(transformation, t => {
-    t.plan(1);
-    t.equal(transform(transformation,   input), expected);
-  }));
+  ['SnakeCase', 'hello my friend', 'hello_my_friend']
+].forEach(transformationTest);
