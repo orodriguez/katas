@@ -16,3 +16,13 @@ test('Lowercase', (t) => {
   t.plan(1);
   t.equal(transform('Lowercase', 'Hello world'), 'hello world');
 });
+
+test('Trim-Start', (t) => {
+  t.plan(1);
+  t.equal(transform('Trim-Start', '\n\t   Hello world'), 'Hello world');
+});
+
+test('Trim-End', (t) => {
+  t.plan(1);
+  t.equal(transform('Trim-End', 'Hello world\n\t   '), 'Hello world');
+});
