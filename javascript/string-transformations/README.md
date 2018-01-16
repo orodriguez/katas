@@ -30,10 +30,6 @@ eliminated.
 
 world" becomes "hello_world".
 
-Page 4 of 6
-
-Novosit's Senior Developer Hiring Process - 2018
-
 ● Pack​: remove all whitespaces and non-printable characters from the input string. "Hello
 
 World" becomes "HelloWorld".
