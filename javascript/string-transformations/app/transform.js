@@ -1,3 +1,4 @@
-const transform = (transformations, str) => str;
+const transform = (transformations, str) => 
+  (transformations === 'Uppercase') ? str.toUpperCase() : str;
 
 module.exports = transform;
