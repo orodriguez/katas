@@ -1,12 +1,21 @@
 const transform = (transformations, str) => {
   const toPascalCase = str => 
     str.split(/(\s)/g) 
-      .map(token => token.charAt(0).toUpperCase() + token.slice(1));
+      .map(token => token.charAt(0).toUpperCase() + token.slice(1).toLowerCase());
 
-  const toCamelCase = str => 
-    toPascalCase(str)
-      .map((token, i) => i == 0 ? token.toLowerCase() : token)
-  
+  const toCamelCase = str => {
+    let found = false;
+    return toPascalCase(str)
+      .map(token => {
+        if (!found && token.match(/\w+/))
+        {
+          found = true;
+          return token.toLowerCase();
+        }
+
+        return token;
+      });
+  }
   const handlers = {
     '': str => str,
     'Lowercase': str => str.toLowerCase(),

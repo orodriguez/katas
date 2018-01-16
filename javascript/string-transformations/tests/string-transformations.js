@@ -29,15 +29,20 @@ test('Trim-End', (t) => {
 
 test('PascalCase', (t) => {
   t.plan(1);
-  t.equal(transform('PascalCase', 'hello world'), 'Hello World');
+  t.equal(transform('PascalCase', 'hello WORLD'), 'Hello World');
 });
 
 test('PascalCase with many spaces', (t) => {
   t.plan(1);
-  t.equal(transform('PascalCase', '   hello  world   '), '   Hello  World   ');
+  t.equal(transform('PascalCase', '   HeLLo  woRld   '), '   Hello  World   ');
 });
 
 test('CamelCase', (t) => {
   t.plan(1);
-  t.equal(transform('CamelCase', 'hello  world'), 'hello  World');
+  t.equal(transform('CamelCase', 'HEllo  wORld'), 'hello  World');
+});
+
+test('CamelCase starting with space', (t) => {
+  t.plan(1);
+  t.equal(transform('CamelCase', '  HELLO  WORLD'), '  hello  World');
 });
