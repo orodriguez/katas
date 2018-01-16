@@ -1,0 +1,14 @@
+{
+  "name": "string-transformations",
+  "version": "1.0.0",
+  "description": "String Transformations Kata",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "kata"
+  ],
+  "author": "Omar Rodríguez",
+  "license": "ISC"
+}
