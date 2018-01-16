@@ -4,11 +4,15 @@
   "description": "String Transformations Kata",
   "main": "index.js",
   "scripts": {
-    "test": "node tests/string-transformations.js"
+    "test": "node tests/string-transformations.js | tap-spec"
   },
   "keywords": [
     "kata"
   ],
   "author": "Omar Rodríguez",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "tap-spec": "^4.1.1",
+    "tape": "^4.8.0"
+  }
 }
