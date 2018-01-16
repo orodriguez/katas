@@ -83,3 +83,8 @@ transformer.Transform("Trim-Start=>Trim-End=>PascalCase=>Pack", " to
 be or not to be: that is the question. ");
 
 // output must be "ToBeOrNotToBeThatIsTheQuestion"
+
+
+# Thinks I leaned
+
+* There is no string.replaceAll in javascript. Used a trick with split.

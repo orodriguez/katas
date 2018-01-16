@@ -2,10 +2,10 @@ test = require('tape');
 
 const transform = require('../app/transform');
 
-const transformationTest = ([transformation,  input, expected]) => 
-  test(transformation, t => {
+const transformationTest = ([transformations,  input, expected]) => 
+  test(transformations, t => {
     t.plan(1);
-    t.equal(transform(transformation, input), expected);
+    t.equal(transform(transformations, input), expected);
   });
 
 [
@@ -19,5 +19,6 @@ const transformationTest = ([transformation,  input, expected]) =>
   ['CamelCase', 'HEllo  wORld', 'hello  World'],
   ['CamelCase', '  HELLO  WORLD  ', '  hello  World  '],
   ['SnakeCase', 'hello my friend', 'hello_my_friend'],
-  ['SnakeCase', 'hello!my!friend', 'hello_my_friend']
+  ['SnakeCase', 'hello!my!friend', 'hello_my_friend'],
+  ['Pack', 'hello\tmy\nfriend there', 'hellomyfriendthere'],
 ].forEach(transformationTest);

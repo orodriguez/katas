@@ -28,7 +28,8 @@ const transform = (transformations, str) => {
     'Trim-End': str => str.trimRight(),
     'PascalCase': str => toPascalCase(str).join(''),
     'CamelCase': str => toCamelCase(str).join(''),
-    'SnakeCase': str => toSnakeCase(str)
+    'SnakeCase': str => toSnakeCase(str),
+    'Pack': str => str.split(/[\t\n\d\r\s]/).join('')
   };
   
 
