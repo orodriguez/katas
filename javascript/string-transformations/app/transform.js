@@ -41,7 +41,7 @@ const transform = (transformations, str) => {
     .map(t => handlers[t])
     .reduce((composite, current) => compose(composite, current));
   
-    return composed(str);
+  return composed(str);
 }
 
 module.exports = transform;
