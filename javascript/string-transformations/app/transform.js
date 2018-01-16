@@ -20,6 +20,8 @@ const transform = (transformations, str) => {
   const toSnakeCase = str => 
     str.split(/[,!@#$%^&*()\s]/).join('_');
 
+  const pack = str => str.split(/[\t\n\d\r\s]/).join('');
+
   const handlers = {
     '': str => str,
     'Lowercase': str => str.toLowerCase(),
@@ -29,7 +31,7 @@ const transform = (transformations, str) => {
     'PascalCase': str => toPascalCase(str).join(''),
     'CamelCase': str => toCamelCase(str).join(''),
     'SnakeCase': str => toSnakeCase(str),
-    'Pack': str => str.split(/[\t\n\d\r\s]/).join('')
+    'Pack': pack
   };
 
   const parseTransformations = transformations => 
