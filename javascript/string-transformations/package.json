@@ -4,7 +4,7 @@
   "description": "String Transformations Kata",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "node tests/string-transformations.js"
   },
   "keywords": [
     "kata"
