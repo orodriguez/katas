@@ -31,9 +31,17 @@ const transform = (transformations, str) => {
     'SnakeCase': str => toSnakeCase(str),
     'Pack': str => str.split(/[\t\n\d\r\s]/).join('')
   };
-  
 
-  return handlers[transformations](str);
+  const parseTransformations = transformations => 
+    transformations.split('=>');
+
+  const compose = (f, g) => a => g(f(a));
+  
+  const composed = parseTransformations(transformations)
+    .map(t => handlers[t])
+    .reduce((composite, current) => compose(composite, current));
+  
+    return composed(str);
 }
 
 module.exports = transform;

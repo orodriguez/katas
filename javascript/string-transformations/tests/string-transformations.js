@@ -21,4 +21,8 @@ const transformationTest = ([transformations,  input, expected]) =>
   ['SnakeCase', 'hello my friend', 'hello_my_friend'],
   ['SnakeCase', 'hello!my!friend', 'hello_my_friend'],
   ['Pack', 'hello\tmy\nfriend there', 'hellomyfriendthere'],
+  ['Trim-Start=>Trim-End=>PascalCase=>Pack', 
+    ' to be or not to be: that is the question. ', 'ToBeOrNotToBe:ThatIsTheQuestion.'],
+  ['Trim-Start=>Trim-End=>SnakeCase=>Uppercase', 
+    ' to be or not to be: that is the question. ', 'TO_BE_OR_NOT_TO_BE:_THAT_IS_THE_QUESTION.'],
 ].forEach(transformationTest);
