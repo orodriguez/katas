@@ -2,52 +2,19 @@ test = require('tape');
 
 const transform = require('../app/transform');
 
-test('None', (t) => {
-  t.plan(1);
-  t.equal(transform('', 'Hello world'), 'Hello world');
-});
-
-test('Uppercase', (t) => {
-  t.plan(1);
-  t.equal(transform('Uppercase', 'Hello world'), 'HELLO WORLD');
-});
-
-test('Lowercase', (t) => {
-  t.plan(1);
-  t.equal(transform('Lowercase', 'Hello world'), 'hello world');
-});
-
-test('Trim-Start', (t) => {
-  t.plan(1);
-  t.equal(transform('Trim-Start', '\n\t   Hello world'), 'Hello world');
-});
-
-test('Trim-End', (t) => {
-  t.plan(1);
-  t.equal(transform('Trim-End', 'Hello world\n\t   '), 'Hello world');
-});
-
-test('PascalCase', (t) => {
-  t.plan(1);
-  t.equal(transform('PascalCase', 'hello WORLD'), 'Hello World');
-});
-
-test('PascalCase with many spaces', (t) => {
-  t.plan(1);
-  t.equal(transform('PascalCase', '   HeLLo  woRld   '), '   Hello  World   ');
-});
-
-test('CamelCase', (t) => {
-  t.plan(1);
-  t.equal(transform('CamelCase', 'HEllo  wORld'), 'hello  World');
-});
-
-test('CamelCase with many spaces', (t) => {
-  t.plan(1);
-  t.equal(transform('CamelCase', '  HELLO  WORLD  '), '  hello  World  ');
-});
-
-test('SnakeCase', (t) => {
-  t.plan(1);
-  t.equal(transform('SnakeCase', 'hello my friend'), 'hello_my_friend');
-});
+[
+  ['', 'Hello world', 'Hello world'],
+  ['Uppercase', 'Hello world', 'HELLO WORLD'],
+  ['Lowercase', 'Hello world', 'hello world'],
+  ['Trim-Start', '\n\t   Hello world', 'Hello world'],
+  ['Trim-End', 'Hello world\n\t   ', 'Hello world'],
+  ['PascalCase', 'hello WORLD', 'Hello World'],
+  ['PascalCase', '   HeLLo  woRld   ', '   Hello  World   '],
+  ['CamelCase', 'HEllo  wORld', 'hello  World'],
+  ['CamelCase', '  HELLO  WORLD  ', '  hello  World  '],
+  ['SnakeCase', 'hello my friend', 'hello_my_friend'],
+].forEach(([transformation,  input, expected]) => 
+  test(transformation, t => {
+    t.plan(1);
+    t.equal(transform(transformation,   input), expected);
+  }));
