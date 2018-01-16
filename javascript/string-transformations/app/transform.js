@@ -15,7 +15,12 @@ const transform = (transformations, str) => {
 
         return token;
       });
-  }
+  };
+
+  const toSnakeCase = str => 
+    str.split(/(\s)/g)
+      .map(token => token.match(/\w+/) ? token : "_");
+
   const handlers = {
     '': str => str,
     'Lowercase': str => str.toLowerCase(),
@@ -23,7 +28,8 @@ const transform = (transformations, str) => {
     'Trim-Start': str => str.trimLeft(),
     'Trim-End': str => str.trimRight(),
     'PascalCase': str => toPascalCase(str).join(''),
-    'CamelCase': str => toCamelCase(str).join('')
+    'CamelCase': str => toCamelCase(str).join(''),
+    'SnakeCase': str => toSnakeCase(str).join('')
   };
   
 

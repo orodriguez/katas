@@ -46,3 +46,8 @@ test('CamelCase with many spaces', (t) => {
   t.plan(1);
   t.equal(transform('CamelCase', '  HELLO  WORLD  '), '  hello  World  ');
 });
+
+test('SnakeCase', (t) => {
+  t.plan(1);
+  t.equal(transform('SnakeCase', 'hello my friend'), 'hello_my_friend');
+});
