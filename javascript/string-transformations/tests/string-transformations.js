@@ -42,7 +42,7 @@ test('CamelCase', (t) => {
   t.equal(transform('CamelCase', 'HEllo  wORld'), 'hello  World');
 });
 
-test('CamelCase starting with space', (t) => {
+test('CamelCase with many spaces', (t) => {
   t.plan(1);
-  t.equal(transform('CamelCase', '  HELLO  WORLD'), '  hello  World');
+  t.equal(transform('CamelCase', '  HELLO  WORLD  '), '  hello  World  ');
 });
