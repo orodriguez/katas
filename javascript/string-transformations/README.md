@@ -88,3 +88,5 @@ be or not to be: that is the question. ");
 # Thinks I leaned
 
 * There is no string.replaceAll in javascript. Used a trick with split.
+
+* Local functions make the main logic hard to read

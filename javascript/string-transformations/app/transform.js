@@ -1,13 +1,10 @@
 const transform = (transformationsStr, str) => {
   const parseResult = parseTransformations(transformationsStr);
+  
+  if (!parseResult.valid())
+    return parseResult.error();
 
-  const invalid = parseResult.find(result => !result.valid); 
-  if (invalid)
-    return `Invalid Transformation "${invalid.token}"`;
-
-  const transformations = parseResult.map(result => result.token);
-
-  return composed(transformations)(str);
+  return composed(parseResult.transformations())(str);
 }
 
 const toPascalCase = str => 
@@ -45,14 +42,17 @@ const handlers = {
 'Pack': pack
 };
 
-const parseTransformations = transformations => 
-  transformations.split('=>')
+const parseTransformations = transformations => {
+  const results = transformations.split('=>')
     .map(parseTransformation);
+
+  return createParseResult(results);
+};
 
 const parseTransformation = transformationStr => {
   const transformation = handlers[transformationStr];
   return transformation 
-    ? { valid: true, token: transformation } 
+    ? { valid: true, token: transformationStr, handler: transformation } 
     : { valid: false, token: transformationStr };
 };
 
@@ -60,6 +60,18 @@ const compose = (f, g) => a => g(f(a));
 
 const composed = transformations =>
   transformations
-    .reduce((composite, current) => compose(composite, current));
+    .reduce((composited, current) => compose(composited, current));
+
+const createParseResult = parsedTransformations => ({
+  
+  valid: () => !parsedTransformations.some(r => !r.valid),
+  
+  error: () => {
+    const invalid = parsedTransformations.find(r => !r.valid);
+    return `Invalid Transformation "${invalid.token}"`
+  },
+  
+  transformations: () => parsedTransformations.map(t => t.handler)
+});
 
 module.exports = transform;
