@@ -1,5 +1,12 @@
 const transform = (transformationsStr, str) => {
-  const transformations = parseTransformations(transformationsStr);
+  const parseResult = parseTransformations(transformationsStr);
+
+  const invalid = parseResult.find(result => !result.valid); 
+  if (invalid)
+    return `Invalid Transformation "${invalid.token}"`;
+
+  const transformations = parseResult.map(result => result.token);
+
   return composed(transformations)(str);
 }
 
@@ -42,9 +49,14 @@ const parseTransformations = transformations =>
   transformations.split('=>')
     .map(parseTransformation);
 
-const compose = (f, g) => a => g(f(a));
+const parseTransformation = transformationStr => {
+  const transformation = handlers[transformationStr];
+  return transformation 
+    ? { valid: true, token: transformation } 
+    : { valid: false, token: transformationStr };
+};
 
-const parseTransformation = t => handlers[t];
+const compose = (f, g) => a => g(f(a));
 
 const composed = transformations =>
   transformations
