@@ -26,5 +26,6 @@ const transformationTest = ([transformations,  input, expected]) =>
   ['Trim-Start=>Trim-End=>SnakeCase=>Uppercase', 
     ' to be or not to be: that is the question. ', 'TO_BE_OR_NOT_TO_BE:_THAT_IS_THE_QUESTION.'],
   ['Invalid', 'Something', 'Invalid Transformation "Invalid"'],
-  ['Useless=>Invalid', 'Something', 'Invalid Transformation "Useless"']
+  ['Useless=>Invalid', 'Something', 'Invalid Transformation "Useless"'],
+  ['CamelCase=>Invalid=>Pack', 'Something', 'Invalid Transformation "Invalid"']
 ].forEach(transformationTest);
