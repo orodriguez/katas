@@ -4,11 +4,13 @@ const transform = (transformationsStr, str) => {
   if (!parseResult.valid())
     return parseResult.error();
 
-  return composed(parseResult.transformations())(str);
+  const _transform = createComposedTransformation(parseResult.transformations());
+
+  return _transform(str);
 }
 
 const toPascalCase = str =>
-  str.split(/(\s)/g)
+  str.split(/(\s)/g) // When a regex with a grupo is passed to split, it includes the delimitator in the results
     .map(token => token.charAt(0).toUpperCase() + token.slice(1).toLowerCase());
 
 const toCamelCase = str => {
@@ -57,9 +59,9 @@ const parseTransformation = transformationStr => {
 
 const compose = (f, g) => a => g(f(a));
 
-const composed = transformations =>
+const createComposedTransformation = transformations =>
   transformations
-    .reduce((composited, current) => compose(composited, current));
+    .reduce((composed, current) => compose(composed, current));
 
 const createParseResult = parsedTransformations => ({
   valid: () => !parsedTransformations.some(r => !r.valid),
