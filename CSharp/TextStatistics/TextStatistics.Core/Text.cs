@@ -1,4 +1,6 @@
-﻿namespace TextStatistics.Core
+﻿using System.Text.RegularExpressions;
+
+namespace TextStatistics.Core
 {
   public class Text : Result
   {
@@ -12,7 +14,7 @@
     public Result Analize() => 
       new Result
       {
-        TotalWords = 0
+        TotalWords = Regex.Match(Str, @"\w").Length
       };
   }
 }
