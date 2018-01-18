@@ -11,5 +11,8 @@ namespace TextStatistics.Tests.Text
 
     [Fact]
     public void _1Word() => "Hello".Analize().TotalWords.ShouldEqual(1);
+
+    [Fact]
+    public void _1WordStartingWithSpace() => "  Hello".Analize().TotalWords.ShouldEqual(1);
   }
 }
