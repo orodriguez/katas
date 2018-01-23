@@ -2,6 +2,8 @@
 {
   public class Result
   {
-    public int TotalWords { get; set; }
+    public (string word, int count)[] WordFrequency { get; set; }
+
+    public (string character, int count)[] CharacterFrequency { get; set; }
   }
 }

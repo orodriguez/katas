@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace TextStatistics.Core
 {
@@ -11,10 +12,17 @@ namespace TextStatistics.Core
 
     public string Str { get; set; }
 
-    public Result Analize() => 
+    public Result Analize() =>
       new Result
       {
-        TotalWords = Regex.Match(Str, @"\w").Length
+        WordFrequency = CountMatches(@"\w+"),
+        CharacterFrequency = CountMatches(@"\w") 
       };
+
+    private (string, int)[] CountMatches(string pattern) => 
+      Regex.Matches(Str, pattern)
+        .GroupBy(match => match.Value)
+        .Select(matches => (word: matches.Key, count: matches.Count()))
+        .ToArray();
   }
 }
