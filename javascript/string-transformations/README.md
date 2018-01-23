@@ -87,6 +87,12 @@ be or not to be: that is the question. ");
 
 # Thinks I leaned
 
+##v1
+
 * There is no string.replaceAll in javascript. Used a trick with split.
 
 * Local functions make the main logic hard to read
+
+##v2
+
+* A simpler solution to camel case using the result of pascal case and replace first word with regex.
