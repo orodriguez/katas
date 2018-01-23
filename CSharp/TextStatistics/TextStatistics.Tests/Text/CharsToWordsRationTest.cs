@@ -8,18 +8,18 @@ namespace TextStatistics.Tests.Text
   {
     [Fact]
     public void Empty() => 
-        "".Analize().CharsToWordsRation.ShouldEqual(Double.NaN);
+        "".CharsPerWord().ShouldEqual(Double.NaN);
 
     [Fact]
     public void _1Letter() => 
-        "a".Analize().CharsToWordsRation.ShouldEqual(1);
+        "a".CharsPerWord().ShouldEqual(1);
 
     [Fact]
     public void _1Word() => 
-        "hello".Analize().CharsToWordsRation.ShouldEqual(4);
+        "hello".CharsPerWord().ShouldEqual(4);
 
     [Fact]
     public void _2Words() => 
-        "hello world".Analize().CharsToWordsRation.ShouldEqual(3.5);
+        "hello world".CharsPerWord().ShouldEqual(3.5);
   }
 }

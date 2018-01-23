@@ -8,31 +8,33 @@ namespace TextStatistics.Tests.Text
   {
     [Fact]
     public void Empty() => 
-      "".Analize()
-        .WordFrequency.ShouldBeEmpty();
+      "".WordFreq().ShouldBeEmpty();
 
     [Fact]
     public void _1Word() =>
-      "Hi".Analize()
-        .WordFrequency
+      "Hi".WordFreq()
         .First().ShouldEqual(("Hi", 1));
 
     [Fact]
     public void _2Words() =>
-      "Hello World".Analize()
-        .WordFrequency
+      "Hello World".WordFreq()
         .ShouldEqual(new [] { ("Hello", 1), ("World", 1) });
 
     [Fact]
     public void _1WordRepeated3Times() =>
-      "Beetlejuice Beetlejuice Beetlejuice".Analize()
-        .WordFrequency
+      "Beetlejuice Beetlejuice Beetlejuice".WordFreq()
         .ShouldEqual(new[] { ("Beetlejuice", 3) });
 
     [Fact]
     public void ManyWords() =>
-      "a friend of a friend told me".Analize()
-        .WordFrequency
-        .ShouldEqual(new[] { ("a", 2), ("friend", 2), ("of", 1), ("told", 1), ("me", 1) });
+      "a friend of a friend told me".WordFreq()
+        .ShouldEqual(new[]
+        {
+          ("a", 2),
+          ("friend", 2),
+          ("of", 1),
+          ("told", 1),
+          ("me", 1)
+        });
   }
 }
