@@ -16,7 +16,7 @@ namespace TextStatistics.Core
       new Result
       {
         WordFrequency = CountMatches(@"\w+"),
-        CharacterFrequency = CountMatches(@"\w") 
+        CharacterFrequency = CountMatches(@"\w"),
       };
 
     private (string, int)[] CountMatches(string pattern) => 
