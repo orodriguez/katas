@@ -1,77 +1,61 @@
-const transform = (transformationsStr, str) => {
-  const parseResult = parseTransformations(transformationsStr);
+const transform = (transformations, str) => 
+  buildTransformation(transformations)(str);
 
-  if (!parseResult.valid())
-    return parseResult.error();
+const buildTransformation = transStr => {
+  const result = parseTransformations(transStr);
+  
+  const invalid = result.find(t => !t.valid)
 
-  const _transform = createComposedTransformation(parseResult.transformations());
-
-  return _transform(str);
+  return invalid 
+    ? str => `Invalid Transformation "${invalid.token}"` 
+    : composeTransformations(result);
 }
 
-const toPascalCase = str =>
-  str.split(/(\s)/g) // When a regex with a grupo is passed to split, it includes the delimitator in the results
-    .map(token => token.charAt(0).toUpperCase() + token.slice(1).toLowerCase());
+const parseTransformations = transStr =>
+  transStr
+    .split('=>')
+    .map(token => handlers[token] 
+      ? { valid: true,  token, handler: handlers[token] } 
+      : { valid: false, token, handler: null });
 
-const toCamelCase = str => {
-  let found = false;
-  return toPascalCase(str)
-    .map(token => {
-      if (!found && token.match(/\w+/)) {
-        found = true;
-        return token.toLowerCase();
-      }
+const composeTransformations = parsingResults => 
+  parsingResults
+    .map(result => result.handler)
+    .reduce((composed, transformation) => str => transformation(composed(str)))
 
-      return token;
-    });
+const pascalCase = str =>  
+  str.split(/(\s)/g)
+    .filter(token => token !== '')
+    .map(pascalWord)
+    .join('');
+
+const pascalWord = token => 
+  token[0].toUpperCase() + token.slice(1).toLowerCase();
+
+const camelCase = str => {
+  const pascalCased = pascalCase(str);
+  const firstWord = pascalCased.match(/\w+/)[0];
+  return pascalCased.replace(/\w+/, firstWord.toLowerCase());
 };
 
-const toSnakeCase = str =>
-  str.split(/[,!@#$%^&*()\s]/).join('_');
+const snakeCase = str => str
+  .split(/[!@#$%^&*()_+\s]/)
+  .join('_');
 
-const pack = str => str.split(/[\t\n\d\r\s]/).join('');
+const pack = str => str
+  .split(/[\s\t\n]/)
+  .join('');
 
 const handlers = {
   '': str => str,
-  'Lowercase': str => str.toLowerCase(),
   'Uppercase': str => str.toUpperCase(),
+  'Lowercase': str => str.toLowerCase(),
   'Trim-Start': str => str.trimLeft(),
   'Trim-End': str => str.trimRight(),
-  'PascalCase': str => toPascalCase(str).join(''),
-  'CamelCase': str => toCamelCase(str).join(''),
-  'SnakeCase': str => toSnakeCase(str),
-  'Pack': pack
+  'PascalCase': pascalCase,
+  'CamelCase': camelCase,
+  'SnakeCase': snakeCase,
+  'Pack': pack,
 };
-
-const parseTransformations = transformations => {
-  const results = transformations.split('=>')
-    .map(parseTransformation);
-
-  return createParseResult(results);
-};
-
-const parseTransformation = transformationStr => {
-  const transformation = handlers[transformationStr];
-  return transformation
-    ? { valid: true, token: transformationStr, handler: transformation }
-    : { valid: false, token: transformationStr };
-};
-
-const compose = (f, g) => a => g(f(a));
-
-const createComposedTransformation = transformations =>
-  transformations
-    .reduce((composed, current) => compose(composed, current));
-
-const createParseResult = parsedTransformations => ({
-  valid: () => !parsedTransformations.some(r => !r.valid),
-
-  error: () => {
-    const invalid = parsedTransformations.find(r => !r.valid);
-    return `Invalid Transformation "${invalid.token}"`;
-  },
-
-  transformations: () => parsedTransformations.map(t => t.handler)
-});
 
 module.exports = transform;

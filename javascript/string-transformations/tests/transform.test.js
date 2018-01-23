@@ -22,9 +22,11 @@ const transformationTest = ([transformations,  input, expected]) =>
   ['SnakeCase', 'hello!my!friend', 'hello_my_friend'],
   ['Pack', 'hello\tmy\nfriend there', 'hellomyfriendthere'],
   ['Trim-Start=>Trim-End=>PascalCase=>Pack', 
-    ' to be or not to be: that is the question. ', 'ToBeOrNotToBe:ThatIsTheQuestion.'],
+    ' to be or not to be: that is the question. ', 
+    'ToBeOrNotToBe:ThatIsTheQuestion.'],
   ['Trim-Start=>Trim-End=>SnakeCase=>Uppercase', 
-    ' to be or not to be: that is the question. ', 'TO_BE_OR_NOT_TO_BE:_THAT_IS_THE_QUESTION.'],
+    ' to be or not to be: that is the question. ', 
+    'TO_BE_OR_NOT_TO_BE:_THAT_IS_THE_QUESTION.'],
   ['Invalid', 'Something', 'Invalid Transformation "Invalid"'],
   ['Useless=>Invalid', 'Something', 'Invalid Transformation "Useless"'],
   ['CamelCase=>Invalid=>Pack', 'Something', 'Invalid Transformation "Invalid"']
