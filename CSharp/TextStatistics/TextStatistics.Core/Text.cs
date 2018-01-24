@@ -5,22 +5,21 @@ namespace TextStatistics.Core
 {
   public class Text
   {
-    public Text(string str) => 
-      Str = str;
-
-    public string Str { get; set; }
+    public Text(string str) => Str = str;
 
     public (string, int)[] CharFreq() => CountMatches(@"\w");
 
     public (string, int)[] WordFreq() => CountMatches(@"\w+");
 
+    private (string, int)[] CountMatches(string pattern) => 
+      Regex.Matches(Str, pattern)
+        .GroupBy(m => m.Value)
+        .Select(matches => (matches.Key, matches.Count()))
+        .ToArray();
+
     public double CharWordRation() => 
       (double)CharFreq().Length / WordFreq().Length;
 
-    private (string, int)[] CountMatches(string pattern) => 
-      Regex.Matches(Str, pattern)
-        .GroupBy(match => match.Value)
-        .Select(matches => (word: matches.Key, count: matches.Count()))
-        .ToArray();
+    private string Str { get; }
   }
 }
