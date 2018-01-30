@@ -7,7 +7,7 @@ const transformationTest = ([transformations,  input, expected]) =>
     t.plan(1);
     t.equal(transform(transformations, input), expected);
   });
-
+  
 [
   ['', 'Hello world', 'Hello world'],
   ['Uppercase', 'Hello world', 'HELLO WORLD'],

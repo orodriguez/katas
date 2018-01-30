@@ -1,36 +1,32 @@
-const transform = (transformations, str) => 
-  buildTransformation(transformations)(str);
+const transform = (transformations, str) => buildTransformation(transformations)(str);
 
-const buildTransformation = transStr => {
-  const result = parseTransformations(transStr);
-  
-  const invalid = result.find(t => !t.valid)
+const buildTransformation = transformations => {
+  const parsingResults = parseTransformations(transformations);
 
-  return invalid 
-    ? str => `Invalid Transformation "${invalid.token}"` 
-    : composeTransformations(result);
-}
+  const invalid = parsingResults.find(result => !result.valid);
 
-const parseTransformations = transStr =>
-  transStr
-    .split('=>')
-    .map(token => handlers[token] 
-      ? { valid: true,  token, handler: handlers[token] } 
-      : { valid: false, token, handler: null });
+  if (invalid)
+    return str => `Invalid Transformation "${invalid.token}"`;
 
-const composeTransformations = parsingResults => 
-  parsingResults
+  return parsingResults
     .map(result => result.handler)
-    .reduce((composed, transformation) => str => transformation(composed(str)))
+    .reduce((composed, handler) => str => handler(composed(str)));
+};
 
-const pascalCase = str =>  
-  str.split(/(\s)/g)
-    .filter(token => token !== '')
-    .map(pascalWord)
-    .join('');
+const parseTransformations = transformations => transformations
+  .split('=>')
+  .map(token => handlers[token] 
+    ? { valid: true, token, handler: handlers[token]} 
+    : { valid: false, token });
 
-const pascalWord = token => 
-  token[0].toUpperCase() + token.slice(1).toLowerCase();
+const pascalCase = str => str
+  .split(/(\s)/g)
+  .filter(token => token !== '')
+  .map(pascalToken)
+  .join('');
+
+const pascalToken = str => 
+  str[0].toUpperCase() + str.slice(1).toLowerCase();
 
 const camelCase = str => {
   const pascalCased = pascalCase(str);
@@ -39,11 +35,11 @@ const camelCase = str => {
 };
 
 const snakeCase = str => str
-  .split(/[!@#$%^&*()_+\s]/)
+  .split(/[\s\t\r!@#$%^&*]/)
   .join('_');
 
 const pack = str => str
-  .split(/[\s\t\n]/)
+  .split(/\s/)
   .join('');
 
 const handlers = {
@@ -55,7 +51,7 @@ const handlers = {
   'PascalCase': pascalCase,
   'CamelCase': camelCase,
   'SnakeCase': snakeCase,
-  'Pack': pack,
+  'Pack': pack
 };
 
 module.exports = transform;
